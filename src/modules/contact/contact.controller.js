@@ -40,4 +40,27 @@ const sendMessage = async (req, res) => {
 };
 
 
-module.exports = { sendMessage };
+const getAllMessage = async (req, res) =>{
+    try {
+        const message = await Contact.find().sort({ createdAt: -1 });
+
+        if(!message || message.length === 0){
+            return res.status(404).json({
+                success: false,
+                message: "No message available"
+            })
+        } 
+         res.status(200).json(message);
+    } catch (error) {
+            console.error("Error fetching message", error)
+                
+            res.status(500).json({
+                sucess: false,
+                message: "Server error while fetching mesages",
+                
+            });
+        };
+}
+
+
+module.exports = { sendMessage, getAllMessage };
