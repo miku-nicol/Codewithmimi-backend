@@ -5,7 +5,7 @@ const sendMessage = async (req, res) => {
     try {
         const { name, email,subject, message } = req.body;
 
-        if(!name,!email,!subject,!message){
+        if(!name || !email || !subject || !message){
             return res.status(400).json({
                 sucess: false,
                 message: "All fields are required",
