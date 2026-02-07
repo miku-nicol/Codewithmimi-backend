@@ -18,6 +18,7 @@ const projectSchema = new Schema(
 
     image: {
       type: String,
+      required: true,
     },
 
     tags: {
@@ -39,18 +40,20 @@ const projectSchema = new Schema(
     category: {
       type: String,
       trim: true,
-      enum: ["Full-stack", "frontend"],
+      enum: ["Full-stack", "Frontend"],
       default: "Full-stack"
     },
 
     github: {
       type: String,
        match: /^https?:\/\/.+/,
+       required: true,
     },
 
     live: {
       type: String,
        match: /^https?:\/\/.+/,
+       required: true,
     },
 
        
