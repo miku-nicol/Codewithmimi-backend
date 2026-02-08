@@ -2,22 +2,14 @@ const Project = require("../project/project.schema");
 
 const createProject = async (req, res )=>{
     try{
-        const { title, description, images, tags, category, github, live} = req.body;
-        if(!title || !description || !tags || !category || !github || !live){
+        const { title, description, tags, github, live} = req.body;
+        if(!title || !description || !tags || !github || !live){
             return res.status(400).json({
-                error: "All fields are required",
+                success: false,
+                message: "All fields are required",
             });
         }
-
-
-        if (req.file) {
-      const result = await cloudinary.uploader.upload(
-        req.file.path,
-        { resource_type: "auto" }
-      );
-
-      image = result.secure_url;
-    }
+        
 
         if (!req.file) {
             return res.status(400).json({
@@ -38,7 +30,7 @@ const createProject = async (req, res )=>{
             title,
             description,
             tags: parsedTags,
-            category,
+            category: category || "Full-stack",
             github,
             live,
             image: req.file.path,
@@ -60,12 +52,9 @@ const createProject = async (req, res )=>{
         return res.status(500).json({
             success: false,
             message: "server error while creating project",
+            error: error.message,
         });
-    }finally {
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
-  }
+    };
 
 };
 

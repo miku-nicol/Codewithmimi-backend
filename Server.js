@@ -3,6 +3,7 @@ const dotenv = require ("dotenv");
 const connectDB = require("./Database/db");
 const cors = require("cors");
 const { contactRouter } = require("./src/modules/contact/contact.routes");
+const { projectRouter } = require("./src/modules/project/project.routes");
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,7 @@ app.get("/", (req,res)=>{
 })
 
 app.use("/api/contact", contactRouter);
+app.use("/api/project", projectRouter);
 
 connectDB();
 
