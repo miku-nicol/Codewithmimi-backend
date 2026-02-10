@@ -12,7 +12,7 @@ app.use(cors());
 app.get("/", (req,res)=>{
     res.end("JOUNERY OF CODEWITHMIMI");
 })
-
+app.use("/uploads", express.static("uploads"));
 app.use("/api/contact", contactRouter);
 app.use("/api/project", projectRouter);
 
