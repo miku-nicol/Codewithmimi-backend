@@ -4,6 +4,7 @@ const connectDB = require("./Database/db");
 const cors = require("cors");
 const { contactRouter } = require("./src/modules/contact/contact.routes");
 const { projectRouter } = require("./src/modules/project/project.routes");
+const { adminRouter } = require("./src/modules/admin/admin.routes");
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ app.get("/", (req,res)=>{
 app.use("/uploads", express.static("uploads"));
 app.use("/api/contact", contactRouter);
 app.use("/api/project", projectRouter);
+app.use("/api/admin", adminRouter);
 
 app.use((err, req, res, next) => {
   console.error("GLOBAL ERROR:", err);
