@@ -1,15 +1,16 @@
  const express = require("express");
 const { createProject, getProject, getProjectById, updateProject, deleteProject } = require("./project.controller");
 const upload = require("../../multer/multer");
+const adminAuth = require("../../middleware/admin.auth");
  
 
     const projectRouter = express.Router();
 
-    projectRouter.route("/add").post(upload.single("image"),createProject)
+    projectRouter.route("/add").post(adminAuth,upload.single("image"),createProject)
     projectRouter.route("/").get(getProject)
-    projectRouter.route("/:id").get(getProjectById)
-    projectRouter.route("/:id").put(upload.single("image"), updateProject)
-    projectRouter.route("/:id").delete(deleteProject)
+    projectRouter.route("/:id").get(adminAuth,getProjectById)
+    projectRouter.route("/:id").put(adminAuth,upload.single("image"), updateProject)
+    projectRouter.route("/:id").delete(adminAuth,deleteProject)
 
 
     projectRouter.post(
