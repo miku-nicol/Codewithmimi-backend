@@ -2,9 +2,11 @@ const express = require("express");
 const dotenv = require ("dotenv");
 const connectDB = require("./Database/db");
 const cors = require("cors");
+const path = require("path")
 const { contactRouter } = require("./src/modules/contact/contact.routes");
 const { projectRouter } = require("./src/modules/project/project.routes");
 const { adminRouter } = require("./src/modules/admin/admin.routes");
+const { resumeRouter } = require("./src/modules/resume/resume.routes");
 
 const app = express();
 app.use(express.json());
@@ -13,10 +15,15 @@ app.use(cors());
 app.get("/", (req,res)=>{
     res.end("JOUNERY OF CODEWITHMIMI");
 })
+
+app.use(express.static(path.join(__dirname, "public")));
+
+
 app.use("/uploads", express.static("uploads"));
 app.use("/api/contact", contactRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/", resumeRouter);
 
 app.use((err, req, res, next) => {
   console.error("GLOBAL ERROR:", err);
@@ -31,5 +38,5 @@ connectDB();
 
 const PORT= process.env.PORT;
 app.listen(PORT, ()=>{
-    console.log (`server iss running on http://localhost:${PORT}`);
+    console.log (`server is running on http://localhost:${PORT}`);
 });
