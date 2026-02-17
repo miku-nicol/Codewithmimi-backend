@@ -58,8 +58,23 @@ const getResume = (req, res) => {
   }
 };
 
+const downloadResume = (req, res) => {
+  const filePath = path.join(
+    __dirname,
+    "../../../public/Miracle_uwaifo_resume.pdf"
+  );
+
+  res.download(filePath, "Miracle_uwaifo_resume.pdf", (err) => {
+    if (err) {
+      console.error("Download error:", err);
+      res.status(500).json({ error: "Failed to download resume" });
+    }
+  });
+};
+
 module.exports = {
   uploadResume,
   deleteResume,
   getResume,
+  downloadResume
 };
